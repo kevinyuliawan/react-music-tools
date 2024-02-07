@@ -1,0 +1,69 @@
+.piano {
+   outline: none;
+  --piano-width: 80vw;
+  --piano-height: calc(var(--piano-width) * 0.18);
+  --border-width: calc(var(--piano-width) * 0.0015);
+  
+  --piano-wh-keys-amount-default: 21;
+  --piano-wh-keys-amount: var(--piano-wh-keys-amount-default); /* Can be overridden with JS */ 
+  --piano-wh-keys-calc: calc(max(21, var(--piano-wh-keys-amount))); /* Relative styling doesn't look good if less than 21 keys */
+
+  --wh-height: var(--piano-height);
+  --wh-width: calc(var(--piano-width) / var(--piano-wh-keys-calc));
+  --wh-max-width: calc(var(--piano-width) / var(--piano-wh-keys-amount-default));
+  
+  --bl-height:    calc(var(--wh-height) * 0.55);
+  --bl-width:     calc(var(--wh-width) * 0.55);
+  --bl-max-width: calc(var(--wh-max-width) * 0.55);
+  --bl-offset: calc( (var(--bl-width) / 2)*-1 - var(--border-width) );
+
+  --wh-color: #CBCBCB;
+  --bl-color: #222222;
+  --wh-border-color: #AAAAAA;
+  --bl-border-color: #000000;
+
+  .note {
+    float: left;
+    position: relative;
+    margin-bottom: 10px;
+    
+    /* Disable annoying highlighting on mobile eg when use presses and holds and moves their finger */
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+  }
+
+  .wh {
+    height: var(--wh-height);
+    width: var(--wh-width);
+    max-width: var(--wh-max-width);
+    z-index: 1;
+    border: var(--border-width) solid var(--wh-border-color);
+    /* border-bottom: 0px; */
+    background-color: var(--wh-color);
+
+    /* Tailwind overrides to specify custom color */
+    @apply bg-gray-50 [&.clicked]:bg-gray-300 text-gray-600;
+  }
+
+  .bl {
+    height: var(--bl-height);
+    width: var(--bl-width);
+    max-width: var(--bl-max-width);
+    z-index: 2;
+    border: var(--border-width) solid var(--bl-border-color);
+    background-color: var(--bl-color);
+
+    @apply bg-gray-600 [&.clicked]:bg-gray-900 text-gray-50;
+  }
+
+  .a, .b, .d, .e, .g, .bl {
+    margin: 0 0 0 var(--bl-offset);
+  }
+
+  .e, .b {
+    border-right: 0px; /* Avoid overlapping borders */
+  }
+
+  .note:last-child{
+    border-right: var(--border-width) solid var(--wh-border-color);
+  }
+}
