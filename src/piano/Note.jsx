@@ -95,8 +95,9 @@ export default function Note ({ name, color, noteValue, mouseIsDown, keyboardKey
       onTouchMove={handleOnTouchMove}
     >
 
-      {keyboardKey ? keyboardKey : ''}
-      
+      <span className="hidden md:inline"> {/* hide key names on mobile, too small to fit on screen */}
+        {keyboardKey ? keyboardKey : ''}
+      </span>
     </div>
   )
 }
